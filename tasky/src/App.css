@@ -1,0 +1,11 @@
+.priority-high {
+    color: #FF5733; /* High priority text color */
+  }
+  
+  .priority-medium {
+    color: #33FF57; /* Medium priority text color */
+  }
+  
+  .priority-low {
+    color: #3366FF; /* Low priority text color */
+  }

@@ -10,11 +10,11 @@ import Grid from '@mui/material/Grid';
 function App() {
   const [ taskState, setTaskState ] = useState({
     tasks: [
-      { id: 1, title:"Dishes", description: "Empty dishwasher", deadline: "Today", done: false },
-      { id: 2, title: "Laundry", description: "Fold clothes and put away", deadline: "Tomorrow", done: false },
-      { id: 3, title: "Tidy up", deadline: "Today", done: false},
-      { id: 3, title: "Homework", deadline: "Today", done: false},
-      { id: 3, title: "Go for a walk", deadline: "Tomorrow", done: false}
+      { id: 1, title:"Dishes", description: "Empty dishwasher", deadline: "Today", done: false, priority: "High" },
+      { id: 2, title: "Laundry", description: "Fold clothes and put away", deadline: "Tomorrow", done: false, priority: "Medium" },
+      { id: 3, title: "Tidy up", deadline: "Today", done: false, priority: "Low"},
+      { id: 4, title: "Homework", deadline: "Today", done: false, priority: "High"},
+      { id: 5, title: "Go for a walk", deadline: "Tomorrow", done: false, priority: "Low"}
     ]
   });
 
@@ -37,17 +37,18 @@ function App() {
     deadline: ""
   });
 
-  const formSubmitHandler = (event) => {
-    event.preventDefault();
-
+  const formSubmitHandler = (formData) => {
     const tasks = [...taskState.tasks];
-    const form = {...formState};
+    formData.id = uuidv4();
+    tasks.push(formData);
+    setTaskState({ tasks });
+  };
 
-    form.id = uuidv4();
-    
-    tasks.push(form);
-    setTaskState({tasks});
-  }
+  const priorityBackgroundColors = {
+    High: 'red',    // Replace with your desired background colors
+    Medium: 'yellow',
+    Low: 'green',
+  };
 
   console.log(formState);
 
@@ -98,9 +99,11 @@ function App() {
                 description={task.description}
                 deadline={task.deadline}
                 done={task.done}
+                priority={task.priority}
                 key={task.id}
                 markDone = {() => doneHandler(index)}
                 deleteTask = {() => deleteHandler(index)}
+                priorityBackgroundColors={priorityBackgroundColors} // Pass the mapping
               />
           ))}
         </Grid>
